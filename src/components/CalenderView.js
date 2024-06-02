@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import decryptData from "../utils/decryptData";
+// import useUserInfo from "../hooks/useUserInfo";
 
 const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const navigate = useNavigate();
@@ -11,14 +12,27 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
       console.log("entered");
       navigate("/");
     }
-    console.log(token);
-    // const realToken = decryptData(token);
-    // console.log(realToken);
+    const realToken = decryptData(token);
+    setAccessToken(realToken);
     // const decodedData = jwtDecode(realToken);
-    // setAccessToken(decodedData.token);
+    // setAccessToken(decodedData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(accessToken);
+  const getUserInfo = async (token) => {
+    const data = await fetch("http://localhost:8080/google/userInfo", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    const jsonData = await data.json();
+    console.log(jsonData);
+  };
+  useEffect(() => {
+    if (accessToken !== null) {
+      getUserInfo(accessToken);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   return (
     <div>
