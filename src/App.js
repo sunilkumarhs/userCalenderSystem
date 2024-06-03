@@ -7,6 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const params = new URLSearchParams(window.location.search);
@@ -82,6 +83,7 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage token={token} />} />
+          <Route path="/error/:errMsg" element={<ErrorPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
