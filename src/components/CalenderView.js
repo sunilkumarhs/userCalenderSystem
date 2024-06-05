@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { jwtDecode } from "jwt-decode";
 import decryptData from "../utils/decryptData";
@@ -6,12 +6,14 @@ import { getMonth } from "../utils/day";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Month from "./Month";
+import GlobalContext from "../contexts/GlobalContext";
 
 const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const navigate = useNavigate();
   const [accessToken, setAccessToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
+  const { monthIndex } = useContext(GlobalContext);
   useEffect(() => {
     if (jwtToken) {
       navigate("/");
@@ -48,6 +50,9 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
+  useEffect(() => {
+    setCurrentMonth(getMonth(monthIndex));
+  }, [monthIndex]);
 
   return userInfo ? (
     <React.Fragment>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
 import { IoIosArrowForward } from "react-icons/io";
@@ -10,29 +10,43 @@ import { MdArrowDropDown } from "react-icons/md";
 import { RiCalendar2Fill } from "react-icons/ri";
 import { MdTaskAlt } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
+import GlobalContext from "../contexts/GlobalContext";
+import dayjs from "dayjs";
 
 const Header = ({ userInfo, logoutHandler }) => {
   const [toggle, setToggle] = useState(false);
+  const { monthIndex, setMonthIndex } = useContext(GlobalContext);
   return (
-    <div className="flex justify-between pr-4 pl-3 py-4">
+    <div className="flex justify-between pr-4 pl-3 py-3">
       <div className="flex">
         <IoMdMenu className="text-5xl cursor-pointer p-3 mr-1 -mt-[0.4rem] rounded-full hover:bg-slate-200" />
         <div className="w-10 h-10 -mt-1">
           <img
             className="w-full h-full"
-            src="https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_3_2x.png"
+            src={`https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_${dayjs().date()}_2x.png`}
             alt="calenderPic"
           />
         </div>
         <p className="text-2xl px-2">Calendar</p>
-        <button className="rounded-md border-[1px] border-slate-300 p-3 py-2 text-sm font-semibold flex mb-1 mr-5 ml-12">
+        <button
+          className="rounded-md border-[1px] border-slate-300 p-3 py-2 text-sm font-semibold flex mb-1 mr-5 ml-12"
+          onClick={() => setMonthIndex(dayjs().month())}
+        >
           Today
         </button>
         <div className="flex mt-1">
-          <IoIosArrowBack className="text-3xl p-[0.35rem] rounded-full hover:bg-slate-200" />
-          <IoIosArrowForward className="text-3xl p-[0.35rem] rounded-full hover:bg-slate-200" />
+          <IoIosArrowBack
+            className="text-3xl p-[0.35rem] rounded-full hover:bg-slate-200"
+            onClick={() => setMonthIndex(monthIndex - 1)}
+          />
+          <IoIosArrowForward
+            className="text-3xl p-[0.35rem] rounded-full hover:bg-slate-200"
+            onClick={() => setMonthIndex(monthIndex + 1)}
+          />
         </div>
-        <p className="text-2xl px-6">April 2024</p>
+        <p className="text-2xl px-6">
+          {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
+        </p>
       </div>
       <div className="flex">
         <MdOutlineSearch className="text-[2.5rem] p-2 mx-2 rounded-full hover:bg-slate-200 cursor-pointer" />
@@ -61,7 +75,7 @@ const Header = ({ userInfo, logoutHandler }) => {
           <div
             className={`${
               toggle ? "flex" : "hidden"
-            } p-4 bg-slate-200 absolute top-12 right-5 my-5 min-w-[140px] rounded-2xl sidebar`}
+            } p-4 bg-slate-200 absolute top-12 right-5 my-4 min-w-[140px] rounded-2xl sidebar shadow-lg`}
           >
             <div>
               <div className="flex justify-center">
