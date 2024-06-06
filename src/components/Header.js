@@ -30,7 +30,13 @@ const Header = ({ userInfo, logoutHandler }) => {
         <p className="text-2xl px-2">Calendar</p>
         <button
           className="rounded-md border-[1px] border-slate-300 p-3 py-2 text-sm font-semibold flex mb-1 mr-5 ml-12"
-          onClick={() => setMonthIndex(dayjs().month())}
+          onClick={() =>
+            setMonthIndex(
+              monthIndex === dayjs().month()
+                ? monthIndex + Math.random()
+                : dayjs().month()
+            )
+          }
         >
           Today
         </button>
