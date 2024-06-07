@@ -7,13 +7,14 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Month from "./Month";
 import GlobalContext from "../contexts/GlobalContext";
+import EventModel from "./EventModel";
 
 const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const navigate = useNavigate();
   const [accessToken, setAccessToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex } = useContext(GlobalContext);
+  const { monthIndex, showEventModel } = useContext(GlobalContext);
   useEffect(() => {
     if (jwtToken) {
       navigate("/");
@@ -56,6 +57,7 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
 
   return userInfo ? (
     <React.Fragment>
+      {showEventModel && <EventModel />}
       <div className="h-screen flex flex-col">
         <Header userInfo={userInfo} logoutHandler={logoutHandler} />
         <div className="flex flex-1">

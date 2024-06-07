@@ -19,15 +19,15 @@ const Header = ({ userInfo, logoutHandler }) => {
   return (
     <div className="flex justify-between pr-4 pl-3 py-3">
       <div className="flex">
-        <IoMdMenu className="text-5xl cursor-pointer p-3 mr-1 -mt-[0.4rem] rounded-full hover:bg-slate-200" />
-        <div className="w-10 h-10 -mt-1">
+        <IoMdMenu className="text-5xl cursor-pointer p-3 mr-1 -mt-1 rounded-full hover:bg-slate-200" />
+        <div className="w-10 h-10">
           <img
             className="w-full h-full"
             src={`https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_${dayjs().date()}_2x.png`}
             alt="calenderPic"
           />
         </div>
-        <p className="text-2xl px-2">Calendar</p>
+        <p className="text-2xl px-2 py-1">Calendar</p>
         <button
           className="rounded-md border-[1px] border-slate-300 p-3 py-2 text-sm font-semibold flex mb-1 mr-5 ml-12"
           onClick={() =>
