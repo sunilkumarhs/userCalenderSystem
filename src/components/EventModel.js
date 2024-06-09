@@ -6,7 +6,7 @@ import { MdSchedule } from "react-icons/md";
 
 const EventModel = () => {
   const [title, setTitle] = useState("");
-  const { setShowEventModel } = useContext(GlobalContext);
+  const { setShowEventModal, daySelected } = useContext(GlobalContext);
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
       <form className="bg-white rounded-lg shadow-2xl w-[36%]">
@@ -27,12 +27,12 @@ const EventModel = () => {
                 delete
               </span>
             )} */}
-            <button onClick={() => setShowEventModel(false)}>
+            <button onClick={() => setShowEventModal(false)}>
               <IoClose className="text-2xl text-gray-500 mt-1" />
             </button>
           </div>
         </header>
-        <div className="p-3">
+        <div className="py-3 pr-3">
           <div className="grid grid-cols-1/5 items-end gap-y-z">
             <div></div>
             <input
@@ -44,7 +44,22 @@ const EventModel = () => {
               required
               className="pt-3 border-b-[1px] border-gray-500 text-2xl text-gray-600 font-semibold focus:outline-none focus:ring-0 w-full focus:border-b-2 focus:border-blue-700"
             />
-            <MdSchedule className="text-2xl" />
+            <div className="py-2"></div>
+            <div className="py-2"></div>
+            <div className="flex py-3 justify-center">
+              <MdSchedule className="text-xl text-gray-600" />
+            </div>
+            <div className="hover:bg-slate-100 p-2 rounded-md cursor-pointer">
+              <div>
+                <p className="text-sm hover:underline">
+                  {daySelected.format("dddd, D MMMM")}
+                </p>
+                <p>{}</p>
+              </div>
+              <p className="text-xs text-gray-600">
+                Time Zone . Doesn't repeat
+              </p>
+            </div>
           </div>
         </div>
       </form>

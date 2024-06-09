@@ -4,10 +4,18 @@ import dayjs from "dayjs";
 
 const ContextWrapper = (props) => {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
-  const [showEventModel, setShowEventModel] = useState(false);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [daySelected, setDaySelected] = useState(dayjs());
   return (
     <GlobalContext.Provider
-      value={{ monthIndex, setMonthIndex, showEventModel, setShowEventModel }}
+      value={{
+        monthIndex,
+        setMonthIndex,
+        showEventModal,
+        setShowEventModal,
+        daySelected,
+        setDaySelected,
+      }}
     >
       {props.children}
     </GlobalContext.Provider>

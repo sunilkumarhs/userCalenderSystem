@@ -14,7 +14,7 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, showEventModel } = useContext(GlobalContext);
+  const { monthIndex, showEventModal } = useContext(GlobalContext);
   useEffect(() => {
     if (jwtToken) {
       navigate("/");
@@ -57,7 +57,7 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
 
   return userInfo ? (
     <React.Fragment>
-      {showEventModel && <EventModel />}
+      {showEventModal && <EventModel />}
       <div className="h-screen flex flex-col">
         <Header userInfo={userInfo} logoutHandler={logoutHandler} />
         <div className="flex flex-1">

@@ -3,8 +3,10 @@ import React from "react";
 const GlobalContext = React.createContext({
   monthIndex: 0,
   setMonthIndex: (index) => {},
-  showEventModel: false,
-  setShowEventModel: () => {},
+  showEventModal: false,
+  setShowEventModal: () => {},
+  daySelected: null,
+  setDaySelected: (day) => {},
 });
 
 export default GlobalContext;
