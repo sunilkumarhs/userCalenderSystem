@@ -1,36 +1,35 @@
 import React, { useContext, useState } from "react";
 import GlobalContext from "../contexts/GlobalContext";
 import { IoClose } from "react-icons/io5";
-import { MdArrowDropUp, MdOutlineDragHandle } from "react-icons/md";
+import { MdArrowDropUp } from "react-icons/md";
 import { MdSchedule } from "react-icons/md";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { MdList } from "react-icons/md";
 import { MdArrowDropDown } from "react-icons/md";
 
-const EventModel = ({ event, setEvent }) => {
+const TaskModel = ({ event, setEvent }) => {
   const [title, setTitle] = useState("");
   const [toggle, setToggle] = useState(false);
   const { setShowEventModal, daySelected } = useContext(GlobalContext);
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
       <form className="bg-white rounded-lg shadow-2xl w-[36%]">
-        <header className="bg-gray-100 px-4 mt-1 flex justify-between items-center rounded-t-lg">
-          <MdOutlineDragHandle className="text-2xl text-gray-500" />
+        <header className="bg-gray-100 px-4 mt-1 flex justify-end items-center rounded-t-lg">
           <div>
             {/* {selectedEvent && (
-              <span
-                onClick={() => {
-                  dispatchCalEvent({
-                    type: "delete",
-                    payload: selectedEvent,
-                  });
-                  setShowEventModal(false);
-                }}
-                className="material-icons-outlined text-gray-400 cursor-pointer"
-              >
-                delete
-              </span>
-            )} */}
+          <span
+            onClick={() => {
+              dispatchCalEvent({
+                type: "delete",
+                payload: selectedEvent,
+              });
+              setShowEventModal(false);
+            }}
+            className="material-icons-outlined text-gray-400 cursor-pointer"
+          >
+            delete
+          </span>
+        )} */}
             <button onClick={() => setShowEventModal(false)}>
               <IoClose className="text-2xl text-gray-500 mt-1" />
             </button>
@@ -64,7 +63,7 @@ const EventModel = ({ event, setEvent }) => {
               <button
                 className={`text-sm p-2 ${
                   event ? "" : "bg-blue-100 text-blue-600"
-                } hover:bg-slate-100 rounded-md`}
+                } hover:bg-blue-200 rounded-md`}
                 onClick={() => setEvent(false)}
               >
                 Task
@@ -89,9 +88,13 @@ const EventModel = ({ event, setEvent }) => {
                 </p>
                 <p>{}</p>
               </div>
-              <p className="text-xs text-gray-600">
-                Time Zone . Doesn't repeat
-              </p>
+              {event ? (
+                <p className="text-xs text-gray-600">
+                  Time Zone . Doesn't repeat
+                </p>
+              ) : (
+                <p className="text-xs text-gray-600">Doesn't repeat</p>
+              )}
             </div>
             <div className="py-1"></div>
             <div className="py-1"></div>
@@ -104,6 +107,25 @@ const EventModel = ({ event, setEvent }) => {
                 className="w-full rounded-md bg-slate-100 focus:outline-none focus:ring-0 p-2 text-sm resize-none hover:bg-slate-200"
                 rows="4"
               />
+            </div>
+            <div className="flex pb-2 justify-center">
+              <MdList className="text-xl text-gray-600" />
+            </div>
+            <div className="cursor-pointer w-[28%] bg-slate-100 flex py-2 rounded-md">
+              <div className="flex" onClick={() => setToggle(!toggle)}>
+                <p className="text-sm px-2">My Tasks</p>
+                <div className="px-1"></div>
+                {toggle ? (
+                  <MdArrowDropUp className="text-lg" />
+                ) : (
+                  <MdArrowDropDown className="text-lg" />
+                )}
+              </div>
+              {toggle && (
+                <div className="fixed text-sm w-1/12 bg-white rounded-md shadow-2xl py-2 mt-7">
+                  <p className="bg-blue-200 p-2">My Tasks</p>
+                </div>
+              )}
             </div>
             <div className="py-4"></div>
           </div>
@@ -118,4 +140,4 @@ const EventModel = ({ event, setEvent }) => {
   );
 };
 
-export default EventModel;
+export default TaskModel;
