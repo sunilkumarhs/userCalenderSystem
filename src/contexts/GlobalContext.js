@@ -7,6 +7,14 @@ const GlobalContext = React.createContext({
   setShowEventModal: () => {},
   daySelected: null,
   setDaySelected: (day) => {},
+  userInfo: null,
+  setUserInfo: () => {},
+  disEvent: true,
+  setDisEvent: () => {},
+  disBirthdays: true,
+  setDisBirthdays: () => {},
+  disTasks: true,
+  setDisTasks: () => {},
 });
 
 export default GlobalContext;

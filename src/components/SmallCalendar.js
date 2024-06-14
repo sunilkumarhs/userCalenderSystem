@@ -55,7 +55,7 @@ const SmallCalendar = () => {
           <Week day={day} i={i} key={i} />
         ))}
       </div>
-      <div className="-ml-2 mr-1 grid gap-y-1 gap-x-2 grid-cols-7 grid-rows-7">
+      <div className="-ml-2 mr-1 grid -mt-1 gap-x-1 grid-cols-7 grid-rows-7">
         {currentMonth.map((row, i) => (
           <React.Fragment key={i}>
             {row.map((day, index) => (
@@ -64,9 +64,13 @@ const SmallCalendar = () => {
                 onClick={() => {
                   setDaySelected(day);
                 }}
-                className={`w-full ${getCurrentDay(day)}`}
+                className={`w-full ${getCurrentDay(
+                  day
+                )} pr-[0.1rem] pb-[0.1rem]`}
               >
-                <span className={`text-xs`}>{day.format("D")}</span>
+                <span className={`text-[0.65rem] font-semibold`}>
+                  {day.format("D")}
+                </span>
               </button>
             ))}
           </React.Fragment>

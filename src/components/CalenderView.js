@@ -14,9 +14,9 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const navigate = useNavigate();
   const [accessToken, setAccessToken] = useState(null);
   const [event, setEvent] = useState(true);
-  const [userInfo, setUserInfo] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, showEventModal } = useContext(GlobalContext);
+  const { monthIndex, showEventModal, userInfo, setUserInfo } =
+    useContext(GlobalContext);
   useEffect(() => {
     if (jwtToken) {
       navigate("/");
@@ -66,7 +66,7 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
         <TaskModel event={event} setEvent={setEvent} />
       )}
       <div className="h-screen flex flex-col">
-        <Header userInfo={userInfo} logoutHandler={logoutHandler} />
+        <Header logoutHandler={logoutHandler} />
         <div className="flex flex-1">
           <Sidebar />
           <Month month={currentMonth} />

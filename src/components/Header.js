@@ -13,9 +13,9 @@ import { FiLogOut } from "react-icons/fi";
 import GlobalContext from "../contexts/GlobalContext";
 import dayjs from "dayjs";
 
-const Header = ({ userInfo, logoutHandler }) => {
+const Header = ({ logoutHandler }) => {
   const [toggle, setToggle] = useState(false);
-  const { monthIndex, setMonthIndex } = useContext(GlobalContext);
+  const { monthIndex, setMonthIndex, userInfo } = useContext(GlobalContext);
   return (
     <div className="flex justify-between pr-4 pl-3 py-3">
       <div className="flex">

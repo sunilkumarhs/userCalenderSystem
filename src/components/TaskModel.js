@@ -10,6 +10,7 @@ import { MdArrowDropDown } from "react-icons/md";
 const TaskModel = ({ event, setEvent }) => {
   const [title, setTitle] = useState("");
   const [toggle, setToggle] = useState(false);
+  const [description, setDescription] = useState("");
   const { setShowEventModal, daySelected } = useContext(GlobalContext);
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
@@ -106,6 +107,9 @@ const TaskModel = ({ event, setEvent }) => {
                 placeholder="Add description"
                 className="w-full rounded-md bg-slate-100 focus:outline-none focus:ring-0 p-2 text-sm resize-none hover:bg-slate-200"
                 rows="4"
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
             <div className="flex pb-2 justify-center">
