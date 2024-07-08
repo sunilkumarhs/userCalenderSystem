@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { MdKeyboardArrowUp } from "react-icons/md";
-import GlobalContext from "../contexts/GlobalContext";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import GlobalContext from "../../contexts/GlobalContext";
 import { FaCheck } from "react-icons/fa6";
 import { HiDotsVertical } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";

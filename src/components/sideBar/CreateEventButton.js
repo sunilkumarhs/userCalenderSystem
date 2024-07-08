@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import plusImg from "../assets/plus.svg";
+import plusImg from "../../assets/plus.svg";
 import { MdArrowDropDown } from "react-icons/md";
-import GlobalContext from "../contexts/GlobalContext";
+import GlobalContext from "../../contexts/GlobalContext";
 
 const CreateEventButton = () => {
   const { setShowEventModal } = useContext(GlobalContext);

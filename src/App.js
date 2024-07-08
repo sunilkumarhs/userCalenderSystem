@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CalenderView from "./components/CalenderView";
+import CalenderView from "./components/mainCalender/CalenderView";
 import {
   BrowserRouter as Router,
   Route,

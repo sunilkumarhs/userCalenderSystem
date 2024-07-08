@@ -1,7 +1,7 @@
 import React from "react";
 import CreateEventButton from "./CreateEventButton";
 import SmallCalendar from "./SmallCalendar";
-import MyCalendars from "./MyCalendars";
+import MyCalendars from "../mainCalender/MyCalendars";
 
 const Sidebar = () => {
   return (
@@ -9,7 +9,7 @@ const Sidebar = () => {
       <div className="px-2 pt-4">
         <CreateEventButton />
       </div>
-      <SmallCalendar />
+      <SmallCalendar padding={"9"} margin={"5"} />
       <MyCalendars />
     </aside>
   );

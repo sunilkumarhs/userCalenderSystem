@@ -1,11 +1,11 @@
 import dayjs from "dayjs";
 import React, { useContext, useEffect, useState } from "react";
-import { getMonth } from "../utils/day";
+import { getMonth } from "../../utils/day";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import GlobalContext from "../contexts/GlobalContext";
-import Week from "./Week";
+import GlobalContext from "../../contexts/GlobalContext";
+import Week from "../mainCalender/Week";
 
-const SmallCalendar = () => {
+const SmallCalendar = ({ padding, margin }) => {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(dayjs().month());
   const [currentMonth, setCurrentMonth] = useState(getMonth());
   const { setDaySelected, daySelected } = useContext(GlobalContext);
@@ -30,7 +30,7 @@ const SmallCalendar = () => {
     }
   };
   return (
-    <div className="mt-5 px-9">
+    <div className={`mt-${margin} px-${padding}`}>
       <header className="flex justify-between">
         <p className="text-sm font-semibold">
           {dayjs(new Date(dayjs().year(), currentMonthIndex)).format(

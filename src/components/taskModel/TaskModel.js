@@ -1,20 +1,31 @@
 import React, { useContext, useState } from "react";
-import GlobalContext from "../contexts/GlobalContext";
+import GlobalContext from "../../contexts/GlobalContext";
 import { IoClose } from "react-icons/io5";
-import { MdArrowDropUp } from "react-icons/md";
-import { MdSchedule } from "react-icons/md";
+import {
+  MdArrowDropUp,
+  MdSchedule,
+  MdArrowDropDown,
+  MdList,
+} from "react-icons/md";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { MdList } from "react-icons/md";
-import { MdArrowDropDown } from "react-icons/md";
+import SetTaskTiming from "./SetTaskTiming";
 
 const TaskModel = ({ event, setEvent }) => {
+  const { setShowEventModal } = useContext(GlobalContext);
   const [title, setTitle] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
   const [description, setDescription] = useState("");
-  const { setShowEventModal, daySelected } = useContext(GlobalContext);
+  const [viewCal, setViewCal] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [taskPeriod, setTaskPeriod] = useState();
   return (
-    <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
-      <form className="bg-white rounded-lg shadow-2xl w-[36%]">
+    <div
+      className="h-screen w-full fixed left-0 top-0 flex justify-center items-center"
+      onClick={() => {
+        viewCal && setViewCal(false);
+      }}
+    >
+      <div className="bg-white rounded-lg shadow-2xl w-[36%]">
         <header className="bg-gray-100 px-4 mt-1 flex justify-end items-center rounded-t-lg">
           <div>
             {/* {selectedEvent && (
@@ -37,7 +48,7 @@ const TaskModel = ({ event, setEvent }) => {
           </div>
         </header>
         <div className="py-3 pr-3">
-          <div className="grid grid-cols-1/5 items-end gap-y-z">
+          <div className="grid grid-cols-1/5 items-start gap-y-z">
             <div></div>
             <input
               type="text"
@@ -70,36 +81,32 @@ const TaskModel = ({ event, setEvent }) => {
                 Task
               </button>
               <div className="px-1"></div>
-              <button className="text-sm p-2 hover:bg-slate-100 rounded-md flex">
-                Appointment schedule <p className="px-1"></p>
-                <p className="bg-blue-600 rounded-xl text-xs text-white px-1 mt-[0.2rem]">
-                  New
-                </p>
-              </button>
+              {!checked && (
+                <button className="text-sm p-2 hover:bg-slate-100 rounded-md flex">
+                  Appointment schedule <p className="px-1"></p>
+                  <p className="bg-blue-600 rounded-xl text-xs text-white px-1 mt-[0.2rem]">
+                    New
+                  </p>
+                </button>
+              )}
             </div>
             <div className="py-2"></div>
             <div className="py-2"></div>
             <div className="flex py-4 justify-center">
               <MdSchedule className="text-xl text-gray-600" />
             </div>
-            <div className="hover:bg-slate-100 p-2 rounded-md cursor-pointer">
-              <div>
-                <p className="text-sm hover:underline">
-                  {daySelected.format("dddd, D MMMM")}
-                </p>
-                <p>{}</p>
-              </div>
-              {event ? (
-                <p className="text-xs text-gray-600">
-                  Time Zone . Doesn't repeat
-                </p>
-              ) : (
-                <p className="text-xs text-gray-600">Doesn't repeat</p>
-              )}
+            <div>
+              <SetTaskTiming
+                viewCal={viewCal}
+                setViewCal={setViewCal}
+                checked={checked}
+                setChecked={setChecked}
+                setTaskPeriod={setTaskPeriod}
+              />
             </div>
             <div className="py-1"></div>
             <div className="py-1"></div>
-            <div className="flex pb-[4.5rem] justify-center">
+            <div className="flex pt-3 justify-center">
               <HiMenuAlt2 className="text-xl text-gray-600" />
             </div>
             <div className="cursor-pointer">
@@ -112,20 +119,20 @@ const TaskModel = ({ event, setEvent }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div className="flex pb-2 justify-center">
+            <div className="flex pt-2 justify-center">
               <MdList className="text-xl text-gray-600" />
             </div>
-            <div className="cursor-pointer w-[28%] bg-slate-100 flex py-2 rounded-md">
-              <div className="flex" onClick={() => setToggle(!toggle)}>
+            <div className="cursor-pointer w-[28%] hover:bg-slate-100 flex py-2 rounded-md">
+              <div className="flex" onClick={() => setDropDown(!dropDown)}>
                 <p className="text-sm px-2">My Tasks</p>
                 <div className="px-1"></div>
-                {toggle ? (
+                {dropDown ? (
                   <MdArrowDropUp className="text-lg" />
                 ) : (
                   <MdArrowDropDown className="text-lg" />
                 )}
               </div>
-              {toggle && (
+              {dropDown && (
                 <div className="fixed text-sm w-1/12 bg-white rounded-md shadow-2xl py-2 mt-7">
                   <p className="bg-blue-200 p-2">My Tasks</p>
                 </div>
@@ -139,7 +146,7 @@ const TaskModel = ({ event, setEvent }) => {
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

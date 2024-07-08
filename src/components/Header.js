@@ -1,14 +1,9 @@
 import React, { useContext, useState } from "react";
-import { IoMdMenu } from "react-icons/io";
+import { IoMdMenu,IoIosArrowForward,IoIosArrowBack  } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
-import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowBack } from "react-icons/io";
-import { MdOutlineSearch } from "react-icons/md";
-import { RiQuestionLine } from "react-icons/ri";
+import { MdOutlineSearch,MdArrowDropDown,MdTaskAlt } from "react-icons/md";
+import { RiQuestionLine,RiCalendar2Fill } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdArrowDropDown } from "react-icons/md";
-import { RiCalendar2Fill } from "react-icons/ri";
-import { MdTaskAlt } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import GlobalContext from "../contexts/GlobalContext";
 import dayjs from "dayjs";
@@ -120,14 +115,6 @@ const Header = ({ logoutHandler }) => {
             </div>
           </div>
         </div>
-        {/* <div
-          className="flex flex-1 py-2 justify-end items-center"
-          onMouseOver={() => setToggle(true)}
-          onMouseOut={() => setToggle(false)}
-        >
-          
-        </div>
-      </div> */}
       </div>
     </div>
   );

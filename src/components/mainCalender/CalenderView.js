@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { jwtDecode } from "jwt-decode";
-import decryptData from "../utils/decryptData";
-import { getMonth } from "../utils/day";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import decryptData from "../../utils/decryptData";
+import { getMonth } from "../../utils/day";
+import Header from "../Header";
+import Sidebar from "../sideBar/Sidebar";
 import Month from "./Month";
-import GlobalContext from "../contexts/GlobalContext";
-import EventModel from "./EventModel";
-import TaskModel from "./TaskModel";
+import GlobalContext from "../../contexts/GlobalContext";
+import EventModel from "../eventModel/EventModel";
+import TaskModel from "../taskModel/TaskModel";
 
 const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const navigate = useNavigate();
