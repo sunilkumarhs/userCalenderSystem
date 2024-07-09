@@ -2,10 +2,16 @@ import React from "react";
 import { IoClose } from "react-icons/io5";
 import { MdOutlineContentCopy, MdOutlineSettings } from "react-icons/md";
 
-const SettingMeeting = ({ dropDown, setDropDown, meeting, setMeeting }) => {
+const SettingMeeting = ({
+  dropDown,
+  setDropDown,
+  meeting,
+  setMeeting,
+  emails,
+}) => {
   return (
     <div className="py-1 relative pr-5">
-      {meeting ? (
+      {meeting || emails !== 1 ? (
         <div>
           <div className="flex justify-between">
             <div>

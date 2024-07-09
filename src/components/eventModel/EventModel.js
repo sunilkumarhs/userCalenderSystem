@@ -7,17 +7,65 @@ import { FaUserGroup } from "react-icons/fa6";
 import SetEventTiming from "./SetEventTiming";
 import AddingGuestEmails from "./AddingGuestEmails";
 import SettingMeeting from "./SettingMeeting";
+import { Time } from "@internationalized/date";
+import findTimeDiff from "../../utils/timeDiff";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(timezone);
 
 const EventModel = ({ event, setEvent }) => {
+  const { setShowEventModal, daySelected, userInfo } =
+    useContext(GlobalContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dropDown, setDropDown] = useState("");
-  const [emails, setEmails] = useState([]);
+  const [emails, setEmails] = useState([
+    {
+      email: userInfo.email,
+      displayName: userInfo.name,
+      organizer: true,
+      optional: false,
+    },
+  ]);
   const [meeting, setMeeting] = useState(false);
   const [viewCal, setViewCal] = useState(false);
-  const [startPeriod, setStartPeriod] = useState();
-  const [endPeriod, setEndPeriod] = useState();
-  const { setShowEventModal } = useContext(GlobalContext);
+  const [checked, setChecked] = useState(false);
+  const t1h = daySelected.add(30, "minutes").format("HH");
+  const t1m = daySelected.add(30, "minutes").format("mm");
+  const t2h = daySelected.add(1, "hour").add(30, "minutes").format("HH");
+  const t2m = daySelected.add(1, "hour").add(30, "minutes").format("mm");
+  const [startTime, setStartTime] = useState(new Time(t1h, t1m));
+  const [endTime, setEndTime] = useState(new Time(t2h, t2m));
+  const uploadEvent = () => {
+    let start;
+    let end;
+    if (checked) {
+      start = {
+        date: daySelected.format("YYYY-MM-DD"),
+        timeZone: dayjs.tz.guess(),
+      };
+      end = {
+        date: daySelected.format("YYYY-MM-DD"),
+        timeZone: dayjs.tz.guess(),
+      };
+    } else {
+      start = {
+        dateTime: findTimeDiff(startTime.toString(), daySelected),
+        timeZone: dayjs.tz.guess(),
+      };
+      end = {
+        dateTime: findTimeDiff(endTime.toString(), daySelected),
+        timeZone: dayjs.tz.guess(),
+      };
+    }
+    console.log(title);
+    console.log(start);
+    console.log(end);
+    console.log(emails);
+    console.log(meeting);
+    console.log(description);
+  };
 
   return (
     <div
@@ -85,12 +133,14 @@ const EventModel = ({ event, setEvent }) => {
                 Task
               </button>
               <div className="px-1"></div>
-              <button className="text-sm p-2 hover:bg-slate-100 rounded-md flex">
-                Appointment schedule <p className="px-1"></p>
-                <p className="bg-blue-600 rounded-xl text-xs text-white px-1 mt-[0.2rem]">
-                  New
-                </p>
-              </button>
+              {!checked && (
+                <button className="text-sm p-2 hover:bg-slate-100 rounded-md flex">
+                  Appointment schedule <p className="px-1"></p>
+                  <p className="bg-blue-600 rounded-xl text-xs text-white px-1 mt-[0.2rem]">
+                    New
+                  </p>
+                </button>
+              )}
             </div>
             <div className="py-2"></div>
             <div className="py-2"></div>
@@ -102,8 +152,12 @@ const EventModel = ({ event, setEvent }) => {
                 viewCal={viewCal}
                 setViewCal={setViewCal}
                 emails={emails}
-                setStartPeriod={setStartPeriod}
-                setEndPeriod={setEndPeriod}
+                checked={checked}
+                setChecked={setChecked}
+                startTime={startTime}
+                setStartTime={setStartTime}
+                endTime={endTime}
+                setEndTime={setEndTime}
               />
             </div>
             <div className="py-1">
@@ -121,6 +175,7 @@ const EventModel = ({ event, setEvent }) => {
                 setEmails={setEmails}
                 setDropDown={setDropDown}
                 dropDown={dropDown}
+                userInfo={userInfo}
               />
             </div>
             <div className="py-1">
@@ -141,6 +196,7 @@ const EventModel = ({ event, setEvent }) => {
               setDropDown={setDropDown}
               meeting={meeting}
               setMeeting={setMeeting}
+              emails={emails.length}
             />
             <div className="py-1">
               <hr />
@@ -165,7 +221,10 @@ const EventModel = ({ event, setEvent }) => {
         </div>
         <footer className="px-4 shadow-inner py-2">
           <div className="flex justify-end">
-            <button className="bg-blue-500 cursor-pointer hover:bg-blue-600 py-2 text-sm px-6 rounded-md text-white">
+            <button
+              className="bg-blue-500 cursor-pointer hover:bg-blue-600 py-2 text-sm px-6 rounded-md text-white"
+              onClick={uploadEvent}
+            >
               Save
             </button>
           </div>

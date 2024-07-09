@@ -1,22 +1,19 @@
 import React, { useContext, useState } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 import { TimeInput } from "@nextui-org/date-input";
-import { Time } from "@internationalized/date";
-import GlobalContext from "../../contexts/GlobalContext";
 import SmallCalendar from "../sideBar/SmallCalendar";
+import GlobalContext from "../../contexts/GlobalContext";
 
 const SetTaskTiming = ({
   viewCal,
   setViewCal,
   checked,
   setChecked,
-  setTaskPeriod,
+  taskTime,
+  setTaskTime,
 }) => {
-  const { daySelected } = useContext(GlobalContext);
-  const th = daySelected.add(30, "minutes").format("HH");
-  const tm = daySelected.add(30, "minutes").format("mm");
-  const [taskTime, setTaskTime] = useState(new Time(th, tm));
   const [toggle, setToggle] = useState(false);
+  const { daySelected } = useContext(GlobalContext);
   return (
     <div>
       <div

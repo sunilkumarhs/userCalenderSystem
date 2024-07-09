@@ -9,7 +9,7 @@ const Sidebar = () => {
       <div className="px-2 pt-4">
         <CreateEventButton />
       </div>
-      <SmallCalendar padding={"9"} margin={"5"} />
+      <SmallCalendar padding={9} margin={5} />
       <MyCalendars />
     </aside>
   );

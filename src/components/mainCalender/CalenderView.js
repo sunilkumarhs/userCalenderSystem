@@ -39,6 +39,7 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
         throw error;
       }
       const jsonData = await res.json();
+      console.log(jsonData);
       setUserInfo(jsonData.userInfo);
     } catch (err) {
       if (!err.statusCode) {

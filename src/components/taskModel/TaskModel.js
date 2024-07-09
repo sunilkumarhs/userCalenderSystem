@@ -9,15 +9,49 @@ import {
 } from "react-icons/md";
 import { HiMenuAlt2 } from "react-icons/hi";
 import SetTaskTiming from "./SetTaskTiming";
+import { Time } from "@internationalized/date";
+import dayjs from "dayjs";
+import findTimeDiff from "../../utils/timeDiff";
 
 const TaskModel = ({ event, setEvent }) => {
-  const { setShowEventModal } = useContext(GlobalContext);
+  const { setShowEventModal, daySelected } = useContext(GlobalContext);
   const [title, setTitle] = useState("");
   const [dropDown, setDropDown] = useState(false);
   const [description, setDescription] = useState("");
   const [viewCal, setViewCal] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [taskPeriod, setTaskPeriod] = useState();
+  const th = daySelected.add(30, "minutes").format("HH");
+  const tm = daySelected.add(30, "minutes").format("mm");
+  const [taskTime, setTaskTime] = useState(new Time(th, tm));
+
+  const uploadTask = () => {
+    let start;
+    let end;
+    if (checked) {
+      start = {
+        date: daySelected.format("YYYY-MM-DD"),
+        timeZone: dayjs.tz.guess(),
+      };
+      end = {
+        date: daySelected.format("YYYY-MM-DD"),
+        timeZone: dayjs.tz.guess(),
+      };
+    } else {
+      start = {
+        dateTime: findTimeDiff(taskTime.toString(), daySelected),
+        timeZone: dayjs.tz.guess(),
+      };
+      end = {
+        dateTime: findTimeDiff(taskTime.toString(), daySelected),
+        timeZone: dayjs.tz.guess(),
+      };
+    }
+    console.log(title);
+    console.log(start);
+    console.log(end);
+    console.log(description);
+  };
+
   return (
     <div
       className="h-screen w-full fixed left-0 top-0 flex justify-center items-center"
@@ -101,7 +135,8 @@ const TaskModel = ({ event, setEvent }) => {
                 setViewCal={setViewCal}
                 checked={checked}
                 setChecked={setChecked}
-                setTaskPeriod={setTaskPeriod}
+                taskTime={taskTime}
+                setTaskTime={setTaskTime}
               />
             </div>
             <div className="py-1"></div>
@@ -141,7 +176,10 @@ const TaskModel = ({ event, setEvent }) => {
             <div className="py-4"></div>
           </div>
           <div className="flex justify-end">
-            <button className="bg-blue-500 cursor-pointer hover:bg-blue-600 py-2 text-sm px-6 rounded-md text-white">
+            <button
+              className="bg-blue-500 cursor-pointer hover:bg-blue-600 py-2 text-sm px-6 rounded-md text-white"
+              onClick={uploadTask}
+            >
               Save
             </button>
           </div>
