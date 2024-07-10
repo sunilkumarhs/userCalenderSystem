@@ -1,6 +1,8 @@
 import React from "react";
 
 const GlobalContext = React.createContext({
+  accessToken: null,
+  setAccessToken: () => {},
   monthIndex: 0,
   setMonthIndex: (index) => {},
   showEventModal: false,

@@ -12,11 +12,16 @@ import TaskModel from "../taskModel/TaskModel";
 
 const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   const navigate = useNavigate();
-  const [accessToken, setAccessToken] = useState(null);
   const [event, setEvent] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, showEventModal, userInfo, setUserInfo } =
-    useContext(GlobalContext);
+  const {
+    accessToken,
+    setAccessToken,
+    monthIndex,
+    showEventModal,
+    userInfo,
+    setUserInfo,
+  } = useContext(GlobalContext);
   useEffect(() => {
     if (jwtToken) {
       navigate("/");
@@ -28,7 +33,7 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
   }, []);
   const getUserInfo = async (token) => {
     try {
-      const res = await fetch("http://localhost:8080/google/userInfo", {
+      const res = await fetch("http://localhost:8080/goggleInit/userInfo", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -39,7 +44,6 @@ const CalenderView = ({ jwtToken, token, logoutHandler }) => {
         throw error;
       }
       const jsonData = await res.json();
-      console.log(jsonData);
       setUserInfo(jsonData.userInfo);
     } catch (err) {
       if (!err.statusCode) {

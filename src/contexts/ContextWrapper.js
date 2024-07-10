@@ -3,6 +3,7 @@ import GlobalContext from "./GlobalContext";
 import dayjs from "dayjs";
 
 const ContextWrapper = (props) => {
+  const [accessToken, setAccessToken] = useState(null);
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [showEventModal, setShowEventModal] = useState(false);
   const [daySelected, setDaySelected] = useState(dayjs());
@@ -13,6 +14,8 @@ const ContextWrapper = (props) => {
   return (
     <GlobalContext.Provider
       value={{
+        accessToken,
+        setAccessToken,
         monthIndex,
         setMonthIndex,
         showEventModal,

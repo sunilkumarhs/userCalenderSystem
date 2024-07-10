@@ -8,7 +8,7 @@ const findTimeDiff = (time2, daySelected) => {
   const hours = Math.floor(diffMs / (1000 * 60 * 60));
   const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
   //   const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
-  console.log(dayjs(daySelected).add(hours, "hour").add(minutes, "minutes"));
+  // console.log(dayjs(daySelected).add(hours, "hour").add(minutes, "minutes"));
   const updatedTime = dayjs(daySelected)
     .add(hours, "hour")
     .add(minutes, "minutes")

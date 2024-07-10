@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import GlobalContext from "../../contexts/GlobalContext";
 import Week from "../mainCalender/Week";
 
-const SmallCalendar = ({ padding, margin }) => {
+const SmallCalendar = ({ sidebar }) => {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(dayjs().month());
   const [currentMonth, setCurrentMonth] = useState(getMonth());
   const { setDaySelected, daySelected } = useContext(GlobalContext);
@@ -30,7 +30,7 @@ const SmallCalendar = ({ padding, margin }) => {
     }
   };
   return (
-    <div className={`mt-${margin} px-${padding}`}>
+    <div className={`${sidebar ? "mt-5 px-9" : "mt-2 px-2"}`}>
       <header className="flex justify-between">
         <p className="text-sm font-semibold">
           {dayjs(new Date(dayjs().year(), currentMonthIndex)).format(
@@ -55,7 +55,11 @@ const SmallCalendar = ({ padding, margin }) => {
           <Week day={day} i={i} key={i} />
         ))}
       </div>
-      <div className="-ml-2 mr-1 grid -mt-1 gap-x-1 grid-cols-7 grid-rows-7">
+      <div
+        className={`-ml-2 mr-1 grid  gap-x-1 ${
+          sidebar ? "-mt-1" : ""
+        }  grid-cols-7 grid-rows-7`}
+      >
         {currentMonth.map((row, i) => (
           <React.Fragment key={i}>
             {row.map((day, index) => (
@@ -64,11 +68,13 @@ const SmallCalendar = ({ padding, margin }) => {
                 onClick={() => {
                   setDaySelected(day);
                 }}
-                className={`w-full ${getCurrentDay(
-                  day
-                )} pr-[0.1rem] pb-[0.1rem]`}
+                className={`w-full ${getCurrentDay(day)} ${
+                  sidebar
+                    ? "pr-[0.15rem] pb-[0.15rem]"
+                    : "pb-[0.4rem] pt-[0.1rem]"
+                }`}
               >
-                <span className={`text-[0.65rem] font-semibold`}>
+                <span className={`text-[0.65rem] font-semibold `}>
                   {day.format("D")}
                 </span>
               </button>

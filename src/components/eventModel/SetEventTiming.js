@@ -70,7 +70,7 @@ const SetEventTiming = ({
               className="bg-white w-[17rem] shadow-2xl absolute z-20 mt-10"
               onClick={() => setViewCal(false)}
             >
-              <SmallCalendar padding={4} margin={2} />
+              <SmallCalendar sidebar={false} />
             </div>
           )}
           {!checked && (

@@ -11,11 +11,12 @@ import { Time } from "@internationalized/date";
 import findTimeDiff from "../../utils/timeDiff";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
+import { postEvent } from "../eventsRestOperations/eventRestMethods";
 
 dayjs.extend(timezone);
 
 const EventModel = ({ event, setEvent }) => {
-  const { setShowEventModal, daySelected, userInfo } =
+  const { accessToken, setShowEventModal, daySelected, userInfo } =
     useContext(GlobalContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -37,7 +38,7 @@ const EventModel = ({ event, setEvent }) => {
   const t2m = daySelected.add(1, "hour").add(30, "minutes").format("mm");
   const [startTime, setStartTime] = useState(new Time(t1h, t1m));
   const [endTime, setEndTime] = useState(new Time(t2h, t2m));
-  const uploadEvent = () => {
+  const uploadEventHandler = () => {
     let start;
     let end;
     if (checked) {
@@ -59,12 +60,15 @@ const EventModel = ({ event, setEvent }) => {
         timeZone: dayjs.tz.guess(),
       };
     }
-    console.log(title);
-    console.log(start);
-    console.log(end);
-    console.log(emails);
-    console.log(meeting);
-    console.log(description);
+    const event = {
+      title: title,
+      start: start,
+      end: end,
+      emails: emails,
+      meeting: meeting,
+      description: description,
+    };
+    postEvent(event, accessToken);
   };
 
   return (
@@ -223,7 +227,7 @@ const EventModel = ({ event, setEvent }) => {
           <div className="flex justify-end">
             <button
               className="bg-blue-500 cursor-pointer hover:bg-blue-600 py-2 text-sm px-6 rounded-md text-white"
-              onClick={uploadEvent}
+              onClick={uploadEventHandler}
             >
               Save
             </button>

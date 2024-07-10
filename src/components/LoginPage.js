@@ -12,7 +12,9 @@ const LoginPage = ({ token }) => {
   return (
     <div>
       <h2>Login</h2>
-      <a href="http://localhost:8080/google/googleAuth">Login with Google</a>
+      <a href="http://localhost:8080/goggleInit/googleAuth">
+        Login with Google
+      </a>
     </div>
   );
 };
